@@ -51,6 +51,31 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       });
   }
 
+  addCustomer() {
+    const dialogRef = this.dialog.open(CustomerEditDialogComponent, {
+      data: {
+        customer: {
+          position: this.customers.length + 1,
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+        },
+        title: 'Add Customer',
+      },
+    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        if (result) {
+          this.customerService
+            .addCustomer(result)
+            .subscribe((customers) => (this.customers = customers));
+        }
+      });
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

@@ -36,6 +36,11 @@ export class CustomerService {
     return of(CUSTOMERS);
   }
 
+  addCustomer(customer: ICustomer): Observable<ICustomer[]> {
+    CUSTOMERS.push(customer);
+    return of([...CUSTOMERS]);
+  }
+
   editCustomer(customer: ICustomer): Observable<ICustomer[]> {
     const newArr = CUSTOMERS.map((c) => {
       if (c.position == customer.position) {
