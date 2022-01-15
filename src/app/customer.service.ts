@@ -35,4 +35,16 @@ export class CustomerService {
   getCustomers(): Observable<ICustomer[]> {
     return of(CUSTOMERS);
   }
+
+  editCustomer(customer: ICustomer): Observable<ICustomer[]> {
+    const newArr = CUSTOMERS.map((c) => {
+      if (c.position == customer.position) {
+        return { ...c, ...customer };
+      }
+
+      return c;
+    });
+
+    return of(newArr);
+  }
 }

@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <form #form="ngForm" class="dialog">
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        name="firstName"
+        [(ngModel)]="newCustomer.firstName"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        name="lastName"
+        [(ngModel)]="newCustomer.lastName"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput name="email" [(ngModel)]="newCustomer.email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput name="phone" [(ngModel)]="newCustomer.phone" required />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-button
+    color="primary"
+    [disabled]="!form.valid"
+    (click)="onSave()"
+  >
+    Save
+  </button>
+</div>
