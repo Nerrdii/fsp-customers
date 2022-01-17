@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
+import { AlertService } from '../alert.service';
+import { CustomerDeleteDialogComponent } from '../customer-delete-dialog/customer-delete-dialog.component';
 import { CustomerEditDialogComponent } from '../customer-edit-dialog/customer-edit-dialog.component';
 import { CustomerService } from '../customer.service';
 import { ICustomer } from '../models/customer.model';
@@ -27,7 +29,8 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {}
@@ -47,6 +50,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
           this.customerService
             .editCustomer(result)
             .subscribe((customers) => (this.customers = customers));
+          this.alertService.openSnackBar('Customer edited!');
         }
       });
   }
@@ -72,8 +76,21 @@ export class CustomerListComponent implements OnInit, OnDestroy {
           this.customerService
             .addCustomer(result)
             .subscribe((customers) => (this.customers = customers));
+          this.alertService.openSnackBar('Customer added!');
         }
       });
+  }
+
+  openDeleteDialog(element: ICustomer) {
+    const dialogRef = this.dialog.open(CustomerDeleteDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.customerService
+          .deleteCustomer(element.position)
+          .subscribe((customers) => (this.customers = customers));
+        this.alertService.openSnackBar('Customer deleted!');
+      }
+    });
   }
 
   ngOnDestroy(): void {
