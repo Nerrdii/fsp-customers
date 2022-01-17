@@ -35,7 +35,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  openEditDialog(element: ICustomer) {
+  onEdit(element: ICustomer) {
     const dialogRef = this.dialog.open(CustomerEditDialogComponent, {
       data: {
         customer: element,
@@ -55,7 +55,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       });
   }
 
-  addCustomer() {
+  onAdd() {
     const dialogRef = this.dialog.open(CustomerEditDialogComponent, {
       data: {
         customer: {
@@ -81,7 +81,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       });
   }
 
-  openDeleteDialog(element: ICustomer) {
+  onDelete(element: ICustomer) {
     const dialogRef = this.dialog.open(CustomerDeleteDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
