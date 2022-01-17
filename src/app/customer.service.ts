@@ -42,15 +42,10 @@ export class CustomerService {
   }
 
   editCustomer(customer: ICustomer): Observable<ICustomer[]> {
-    const newArr = CUSTOMERS.map((c) => {
-      if (c.position === customer.position) {
-        return { ...c, ...customer };
-      }
+    const idx = CUSTOMERS.findIndex((c) => c.position === customer.position);
+    CUSTOMERS[idx] = customer;
 
-      return c;
-    });
-
-    return of(newArr);
+    return of([...CUSTOMERS]);
   }
 
   deleteCustomer(position: number) {

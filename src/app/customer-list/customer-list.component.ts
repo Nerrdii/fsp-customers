@@ -59,7 +59,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CustomerEditDialogComponent, {
       data: {
         customer: {
-          position: this.customers.length + 1,
+          position: this.customers.slice(-1)[0].position + 1,
           firstName: '',
           lastName: '',
           email: '',
